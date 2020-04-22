@@ -15,8 +15,8 @@ class LoginForm(FlaskForm):
 
 
 # NEEDS TO BE CHANGED LATER. JUST A BASE TO WORK FROM
-class Questionnaire(FlaskForm):
-    personal info = {
+""" class Questionnaire(FlaskForm):
+    personal_info = {
         name = StringField('Full Name', validators=[DataRequired()])
         phoneNumber = StringField('Phone Number', validator=s[DataRequired()])
         website = StringField('Your Portfolio Website')
@@ -92,4 +92,4 @@ class Questionnaire(FlaskForm):
             bullet2 = StringField('One sentence about the project', validators=[Length(min=20, max=150)])
             bullet3 = StringField('One sentence about the project', validators=[Length(min=20, max=150)])
         }
-    }
+    } """
