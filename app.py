@@ -70,10 +70,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
-           if check_password_hash(user.password, form.password.data):
+           if form.password.data == user.password:
               login_user(user, remember=form.remember.data)
               return redirect(url_for('dashboard'))
-        return '<h1>Incorrect username/password. Try again.</h1>'
+        flash('Incorrect username/password. Try again.')
     return render_template('login.html', form=form)
 
 @app.route('/save', methods=['POST'])
