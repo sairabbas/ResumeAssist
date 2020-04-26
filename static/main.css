@@ -16,3 +16,6 @@
 a:hover {
     color: cyan !important;
 }
+body {
+  padding-top: 56px;
+}
