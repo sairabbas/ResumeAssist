@@ -22,9 +22,11 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +38,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<user: {self.username}>'
 
+
 class ResumeList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
@@ -44,6 +47,7 @@ class ResumeList(db.Model):
 
     def __repr__(self):
         return f'<post: {self.text}>'
+
 
 @app.route("/")
 @app.route("/home")
@@ -70,11 +74,12 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
-           if form.password.data == user.password:
-              login_user(user, remember=form.remember.data)
-              return redirect(url_for('dashboard'))
+            if form.password.data == user.password:
+                login_user(user, remember=form.remember.data)
+                return redirect(url_for('dashboard'))
         flash('Incorrect username/password. Try again.')
     return render_template('login.html', form=form)
+
 
 @app.route('/save', methods=['POST'])
 def save():
@@ -88,6 +93,10 @@ def save():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/selection')
+def selection():
+    return render_template('selection.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
