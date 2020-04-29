@@ -6,8 +6,10 @@ from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash
 from io import BytesIO
+from forms import RegistrationForm, LoginForm, QuestionnaireForm, Test
+import encodeDecode
 
-from forms import RegistrationForm, LoginForm, QuestionnaireForm
+
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
@@ -39,6 +41,11 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<user: {self.username}>'
 
+#TO TEST ENCODE DECODE
+class Info(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    education = db.Column(db.String(100))
 
 class ResumeList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +61,24 @@ class ResumeList(db.Model):
 @app.route("/home")
 def home():
     return render_template('home.html')
+
+#TO TEST ENCODER DECODER
+@app.route("/test", methods =['POST'])
+def submit():
+    form = Test()
+    if form.validate_on_submit():
+        #takes all form data and writes into text file
+        with open("education.txt", "w") as education:
+          education.write(str(form.school.data))
+          education.write(str(form.degree.data))
+          education.write(str(form.startDate.data))
+          education.write(str(form.endDate.data))
+          education.write(str(form.gpa.data))
+          education.write(str(form.coursework.data))
+        #store textfile as a encoded string of bytes
+        info = Info(eductation = encodeDecode.encodeFile("education.txt"))
+        db.session.add(info)
+        db.session.commit()
 
 
 @app.route("/register", methods=['GET', 'POST'])

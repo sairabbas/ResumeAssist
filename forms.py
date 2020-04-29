@@ -15,6 +15,14 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Rememeber Me')
     submit = SubmitField('Sign In')
 
+#TO TEST ENCODE DECODE
+class Test(FlaskForm):
+    schoolName = StringField('School Name', validators=[DataRequired(), Length(min=3, max=40)])
+    schoolDegree = StringField('School Degree', validators=[DataRequired(), Length(min=3, max=40)])
+    schoolGPA = StringField('School GPA', validators=[DataRequired(), Length(min=1, max=6)])
+    schoolStartDate = StringField('Start Date', validators=[DataRequired(), Length(min=3, max=40)])
+    schoolEndDate = StringField('End Date', validators=[DataRequired(), Length(min=3, max=40)])
+
 
 class QuestionnaireForm(FlaskForm):
     schoolName = StringField('School Name', validators=[DataRequired(), Length(min=3, max=40)])
