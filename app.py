@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash
 from io import BytesIO
 
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, QuestionnaireForm
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
@@ -72,7 +72,7 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = LoginForm
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
@@ -108,6 +108,11 @@ def download():
     file_data = ResumeList.query.filter_by(id=1).first()
     return send_file(BytesIO(file_data.resume), attachment_filename='flask.pdf', as_attachment=True)
 
+
+@app.route('/questionnaire')
+def questionnaire():
+    form = QuestionnaireForm()
+    return render_template('questionnaire.html', form=form)
 
 
 if __name__ == '__main__':
