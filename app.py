@@ -72,7 +72,7 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = LoginForm
+    form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
@@ -107,7 +107,6 @@ def save():
 def download():
     file_data = ResumeList.query.filter_by(id=1).first()
     return send_file(BytesIO(file_data.resume), attachment_filename='flask.pdf', as_attachment=True)
-
 
 @app.route('/questionnaire')
 def questionnaire():
