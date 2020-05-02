@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Questionnaire - Resume Assist
+Login - Resume Assist
 {% endblock %}
 
 {% block styles %}
@@ -138,31 +138,23 @@ button:hover {
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard
-              <span class="sr-only">(current)</span>
-            </a>
+          <li class="nav-item">
+            <a style="color: white" class="nav-link" href="{{ url_for('login') }}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('questionnaire') }}">Create</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') }}">Logout</a>
+            <a style="color: white" class="nav-link" href="{{ url_for('register') }}">Register</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-<body>
+<body style="padding-top: 150px">
   <div class = "container">
   <form id="regForm" action="/action_page.php">
-    <h1 style="text-align: center">Resume Information</h1>
+    <h1>Resume Information</h1>
     <!-- One "tab" for each step in the form: -->
-    <div>
+    <div class="tab">
     <h2>School:</h2><br>
       {{form.hidden_tag()}}
       {{wtf.form_field(form.schoolName)}}
@@ -179,8 +171,7 @@ button:hover {
       {{ form.schoolCourse3Description() }}
       <br><br><br>
     </div>
-    <div>
-      <h2>Projects:</h2><br>
+    <div class="tab"><h2>Projects:</h2><br>
       {{wtf.form_field(form.projectTitle)}}
       {{ form.projectDescription.label(class__="text_blob") }}
       {{ form.projectDescription(class="") }}
@@ -193,10 +184,10 @@ button:hover {
       </div>
       <!-- Hide until add is clicked -->
       <div id= "project2" style=display:none;>
-        {{wtf.form_field(form.projectTitle2)}}
-        {{ form.projectDescription2.label(class__="text_blob") }}
-        {{ form.projectDescription2(class="") }}
-        {{wtf.form_field(form.projectTime2)}}
+        {{wtf.form_field(form.projectTitle)}}
+        {{ form.projectDescription.label() }}
+        {{ form.projectDescription(class="") }}
+        {{wtf.form_field(form.projectTime)}}
         <br>
         <div style="overflow:auto;">
           <div style = "float:left;">
@@ -214,8 +205,7 @@ button:hover {
       </div>
     </div>
     <!--END OF PROJECT SECTION AND START OF WORK SECTION-->
-    <div>
-      <h2>Work Experience:</h2><br>
+    <div class="tab"><h2>Work Experience:</h2><br>
       {{wtf.form_field(form.workTitle)}}
       {{ form.workDescription.label(class="") }}
       {{ form.workDescription(class="") }}
@@ -250,11 +240,9 @@ button:hover {
       </div>
     </div>
     <div style="overflow:auto;">
-      <div style="float:left;">
-       <a href="{{ url_for('dashboard') }}" class="btn btn-lg btn-primary btn-block">Previous</a>
-      </div>
       <div style="float:right;">
-        <a href="{{ url_for('selection') }}" class="btn btn-lg btn-primary btn-block">Next</a>
+        <button class ="btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button class = "btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
       </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
@@ -266,7 +254,7 @@ button:hover {
   </form>
 </div>
 </body>
-<div>
+<div style="padding-top: 121px">
     &nbsp;
 </div>
 <!-- /.container -->
