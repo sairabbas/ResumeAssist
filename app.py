@@ -42,10 +42,11 @@ class User(UserMixin, db.Model):
         return f'<user: {self.username}>'
 
 #TO TEST ENCODE DECODE
-class Info(db.Model):
+""" class Info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    education = db.Column(db.String(100))
+    encoded = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) """
+    
 
 class ResumeList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,7 +64,7 @@ def home():
     return render_template('home.html')
 
 #TO TEST ENCODER DECODER
-@app.route("/test", methods =['POST'])
+""" @app.route("/test", methods =['POST'])
 def submit():
     form = Test()
     if form.validate_on_submit():
@@ -78,7 +79,7 @@ def submit():
         #store textfile as a encoded string of bytes
         info = Info(eductation = encodeDecode.encodeFile("education.txt"))
         db.session.add(info)
-        db.session.commit()
+        db.session.commit() """
 
 
 @app.route("/register", methods=['GET', 'POST'])

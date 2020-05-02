@@ -3,11 +3,14 @@
 
 from fpdf import FPDF
 
+#def write_file():
+
+
 def createPDF():
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font('Times','BI',11)
-
+#   write file...
     contact = open("./resume_generation/test.txt","r")
 
     for x in contact:
