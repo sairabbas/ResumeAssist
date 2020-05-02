@@ -30,7 +30,11 @@ Login - Resume Assist
       </div>
     </div>
   </nav>
-
+<div style="color: red">
+    {% if error %}
+  <p style="text-align: center" class=error><strong>Error:</strong> {{ error }} </p>
+    {% endif %}
+</div>
 <body style="padding-top: 150px">
     <div class="container">
       <form class="form-signin" method="POST" action="/login">

@@ -83,20 +83,26 @@ def submit():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    error = None
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = form.password.data
-        user = User(username=form.username.data,
-                    email=form.email.data,
-                    password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('dashboard'))
-    return render_template('register.html', form=form)
+        user = User.query.filter_by(username=form.username.data).first()
+        if user:
+            error = "Username is already taken, please try again."
+        else:
+            hashed_password = form.password.data
+            user = User(username=form.username.data,
+                        email=form.email.data,
+                        password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('dashboard'))
+    return render_template('register.html', form=form, error=error)
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    error = None
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -104,8 +110,14 @@ def login():
             if form.password.data == user.password:
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
-        flash('Incorrect username/password. Try again.')
-    return render_template('login.html', form=form)
+        error = "Incorrect username or password, please try again."
+    return render_template('login.html', form=form, error=error)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()  # Delete Flask-Login's session cookie
+    return redirect(url_for('home'))
 
 
 @app.route('/dashboard')
@@ -133,7 +145,8 @@ def download():
     file_data = ResumeList.query.filter_by(id=1).first()
     return send_file(BytesIO(file_data.resume), attachment_filename='flask.pdf', as_attachment=True)
 
-@app.route('/questionnaire')
+
+@app.route('/questionnaire', methods=['GET', 'POST'])
 def questionnaire():
     form = QuestionnaireForm()
     return render_template('questionnaire.html', form=form)
