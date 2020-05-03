@@ -61,6 +61,7 @@ class ResumeList(db.Model):
 @app.route("/")
 @app.route("/home")
 def home():
+    logout_user()
     return render_template('home.html')
 
 #TO TEST ENCODER DECODER
@@ -116,23 +117,27 @@ def login():
 
 
 @app.route("/logout")
+@login_required
 def logout():
-    logout_user()  # Delete Flask-Login's session cookie
+    logout_user()
     return redirect(url_for('home'))
 
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    resumes = ResumeList.query.filter_by(id=User.id).all()
+    return render_template('dashboard.html', resumes=resumes)
 
 
 @app.route('/selection')
+@login_required
 def selection():
     return render_template('selection.html')
 
 
 @app.route('/save', methods=['POST'])
+@login_required
 def save():
     file = request.files['inputFile']
     newFile = ResumeList(name=file.name, resume=file.read())
@@ -142,12 +147,14 @@ def save():
 
 
 @app.route('/download')
+@login_required
 def download():
     file_data = ResumeList.query.filter_by(id=1).first()
     return send_file(BytesIO(file_data.resume), attachment_filename='flask.pdf', as_attachment=True)
 
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
+@login_required
 def questionnaire():
     form = QuestionnaireForm()
     return render_template('questionnaire.html', form=form)
