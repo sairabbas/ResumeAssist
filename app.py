@@ -159,7 +159,7 @@ def delete():
 @app.route('/view')
 @login_required
 def view():
-    hi = "hi"
+    blank = "blank"
 
 
 @app.route('/download')
