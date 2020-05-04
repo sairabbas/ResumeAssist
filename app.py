@@ -9,7 +9,6 @@ from io import BytesIO
 from forms import RegistrationForm, LoginForm, QuestionnaireForm, Test
 import encodeDecode
 
-
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
@@ -41,12 +40,13 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<user: {self.username}>'
 
-#TO TEST ENCODE DECODE
+
+# TO TEST ENCODE DECODE
 """ class Info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     encoded = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) """
-    
+
 
 class ResumeList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -64,7 +64,8 @@ def home():
     logout_user()
     return render_template('home.html')
 
-#TO TEST ENCODER DECODER
+
+# TO TEST ENCODER DECODER
 """ @app.route("/test", methods =['POST'])
 def submit():
     form = Test()
@@ -144,6 +145,21 @@ def save():
     db.session.add(newFile)
     db.session.commit()
     return redirect(url_for('home'))
+
+
+@app.route('/delete')
+@login_required
+def delete():
+    db.resumeList.delete()
+    db.session.commit()
+    resumes = ResumeList.query.filter_by(id=User.id).all()
+    return render_template('dashboard.html', resumes)
+
+
+@app.route('/view')
+@login_required
+def view():
+    hi = "hi"
 
 
 @app.route('/download')
