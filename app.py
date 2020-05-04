@@ -132,34 +132,23 @@ def dashboard():
     return render_template('dashboard.html', resumes=resumes)
 
 
+@app.route('/questionnaire', methods=['GET', 'POST'])
+@login_required
+def questionnaire():
+    form = QuestionnaireForm()
+    return render_template('questionnaire.html', form=form)
+
+
+@app.route('/upload', methods=['POST'])
+@login_required
+def upload():
+    file = request.files['inputFile']
+    return file.name
+
 @app.route('/selection')
 @login_required
 def selection():
     return render_template('selection.html')
-
-
-@app.route('/save', methods=['POST'])
-@login_required
-def save():
-    file = request.files['inputFile']
-    newFile = ResumeList(name=file.name, resume=file.read())
-    db.session.add(newFile)
-    db.session.commit()
-    return redirect(url_for('home'))
-
-
-@app.route('/delete<id>')
-@login_required
-def delete(id):
-    ResumeList.query.filter_by(id=int(id)).delete()
-    db.session.commit()
-    return render_template('dashboard.html')
-
-
-@app.route('/view')
-@login_required
-def view():
-    blank = "blank"
 
 
 @app.route('/download<id>')
@@ -169,11 +158,19 @@ def download(id):
     return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name, as_attachment=True)
 
 
-@app.route('/questionnaire', methods=['GET', 'POST'])
+@app.route('/view<id>')
 @login_required
-def questionnaire():
-    form = QuestionnaireForm()
-    return render_template('questionnaire.html', form=form)
+def view(id):
+    file_data = ResumeList.query.filter_by(id=int(id)).first()
+    return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name)
+
+
+@app.route('/delete<id>')
+@login_required
+def delete(id):
+    ResumeList.query.filter_by(id=int(id)).delete()
+    db.session.commit()
+    return render_template('dashboard.html')
 
 
 if __name__ == '__main__':
