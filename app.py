@@ -127,6 +127,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    User = current_user
     resumes = ResumeList.query.filter_by(id=User.id).all()
     return render_template('dashboard.html', resumes=resumes)
 
@@ -147,13 +148,12 @@ def save():
     return redirect(url_for('home'))
 
 
-@app.route('/delete')
+@app.route('/delete<id>')
 @login_required
-def delete():
-    db.resumeList.delete()
+def delete(id):
+    ResumeList.query.filter_by(id=int(id)).delete()
     db.session.commit()
-    resumes = ResumeList.query.filter_by(id=User.id).all()
-    return render_template('dashboard.html', resumes)
+    return render_template('dashboard.html')
 
 
 @app.route('/view')
@@ -165,7 +165,7 @@ def view():
 @app.route('/download')
 @login_required
 def download():
-    file_data = ResumeList.query.filter_by(id=1).first()
+    file_data = ResumeList.query.filter_by(id=User.id).first()
     return send_file(BytesIO(file_data.resume), attachment_filename='flask.pdf', as_attachment=True)
 
 
