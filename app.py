@@ -127,8 +127,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    User = current_user
-    resumes = ResumeList.query.filter_by(id=User.id).all()
+    resumes = ResumeList.query.all()
     return render_template('dashboard.html', resumes=resumes)
 
 
@@ -139,11 +138,18 @@ def questionnaire():
     return render_template('questionnaire.html', form=form)
 
 
-@app.route('/upload', methods=['POST'])
+@app.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload():
-    file = request.files['inputFile']
-    return file.name
+    if request.method == "POST":
+        if request.files:
+            file = request.files['inputFile']
+            thisFile = ResumeList(name=file.name, resume=file.read())
+            db.session.add(thisFile)
+            db.session.commit()
+            return redirect(url_for("upload"))
+    return render_template("upload.html")
+
 
 @app.route('/selection')
 @login_required
@@ -170,7 +176,8 @@ def view(id):
 def delete(id):
     ResumeList.query.filter_by(id=int(id)).delete()
     db.session.commit()
-    return render_template('dashboard.html')
+    resumes = ResumeList.query.all()
+    return render_template('dashboard.html', resumes=resumes)
 
 
 if __name__ == '__main__':

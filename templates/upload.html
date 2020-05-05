@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Register - Resume Assist
+Upload - Resume Assist
 {% endblock %}
 
 {% block styles %}
@@ -40,16 +40,17 @@ Register - Resume Assist
   </nav>
 
 <!-- Page Features -->
-    <div class="container">
-        <h1> Upload File</h1>
-        <form method="POST" action="/upload" enctype="multipart/form-data">
-            <div class="form-group">
-                <label>File Input</label>
-                <input type="file" name="inputFile">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-    </div>
+ <div class ="container">
+    <h1>Resume
+      <form method="POST" action="/upload" enctype="multipart/form-data">
+        <div>
+          <label for="inputFile">Upload</label>
+          <input type="file" name="inputFile">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </h1>
+  </div>
 
 <!-- Adjust Page Spacing -->
 <div style="padding-top: 75px">
