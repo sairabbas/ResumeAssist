@@ -8,7 +8,6 @@ from werkzeug.security import check_password_hash
 from io import BytesIO
 from forms import RegistrationForm, LoginForm, QuestionnaireForm, Test
 import encodeDecode
-import pdfkit
 
 from flask_bootstrap import Bootstrap
 
