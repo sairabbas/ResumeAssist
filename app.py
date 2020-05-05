@@ -161,15 +161,15 @@ def selection():
 @app.route('/download<id>')
 @login_required
 def download(id):
-    file_data = ResumeList.query.filter_by(id=int(id)).first()
+    file_data = ResumeList.query.filter_by(id=id).first()
     return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name, as_attachment=True)
 
 
 @app.route('/view<id>')
 @login_required
 def view(id):
-    file_data = ResumeList.query.filter_by(id=int(id)).first()
-    return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name)
+    resume = ResumeList.query.filter_by(id=id).first()
+    return send_file(BytesIO(resume.resume))
 
 
 @app.route('/delete<id>')

@@ -38,9 +38,9 @@ Upload - Resume Assist
       </div>
     </div>
   </nav>
-<body>
 <!-- Page Features -->
- <div style="padding-top: 120px" class ="container">
+ <div style="padding-top: 160px" class="container">
+     <div style="text-align: center;">
    {% with messages = get_flashed_messages() %}
    {% if messages %}
     <ul class=flashes>
@@ -50,19 +50,18 @@ Upload - Resume Assist
     </ul>
     {% endif %}
     {% endwith %}
-    <h1 style="text-align: center">Upload Resume
+    <h1>Upload Resume
         <br><br>
       <form method="POST" action="/upload" enctype="multipart/form-data">
-        <div>
-          <label style="padding-left: 263px" for="inputFile"></label>
-          <input type="file" name="inputFile">
-        </div>
+          <label for="inputFile"></label>
+          <input style="width: 44%" type="file" name="inputFile">
+          <br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </h1>
+     </div>
   </div>
-</body>
-<div style="padding-top: 284px">
+<div style="padding-top: 244px">
     &nbsp;
 </div>
 <!-- /.container -->
