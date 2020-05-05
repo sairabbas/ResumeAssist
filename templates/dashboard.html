@@ -55,9 +55,8 @@ Dashboard - Resume Assist
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
           <img class="card-img-top" src="{{ url_for('view', id=resume.id) }}" alt="file.pdf">
-          <div class="card-body" style="padding-top: 0px">
+          <div class="card-body" style="padding-top: 5px">
             <h4 class="card-title"> {{ resume.name }} </h4>
-            <p class="card-text">Quick Synopsis Of Resume Info</p>
           </div>
           <div class="card-footer">
             <a href="{{ url_for('download', id=resume.id) }}" class="btn btn-primary">Download</a>
