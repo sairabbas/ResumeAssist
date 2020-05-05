@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '57916289bb0b13ce0c676dfde280ba245'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['MEDIA_FOLDER'] = 'static/media'
 
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
@@ -168,6 +169,12 @@ def delete(id):
     db.session.commit()
     resumes = ResumeList.query.all()
     return render_template('dashboard.html', resumes=resumes)
+
+
+@app.route('/media<file>')
+@login_required
+def media(file):
+    hi = None
 
 
 if __name__ == '__main__':
