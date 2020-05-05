@@ -30,10 +30,16 @@ Register - Resume Assist
       </div>
     </div>
   </nav>
-<div style="color: red; padding-top: 150px">
-    {% if error %}
-  <p style="text-align: center" class=error><strong>Error:</strong> {{ error }} </p>
+{% with messages = get_flashed_messages() %}
+<div style="padding-top: 149px">
+   {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+     <p style="text-align: center; color: red" class=error><strong>{{ message }}</strong></p>
+    {% endfor %}
+    </ul>
     {% endif %}
+    {% endwith %}
 </div>
 <body>
 <div class="container">

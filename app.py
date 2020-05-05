@@ -8,6 +8,7 @@ from werkzeug.security import check_password_hash
 from io import BytesIO
 from forms import RegistrationForm, LoginForm, QuestionnaireForm, Test
 import encodeDecode
+import pdfkit
 
 from flask_bootstrap import Bootstrap
 
@@ -86,12 +87,11 @@ def submit():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    error = None
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
-            error = "Username is already taken, please try again."
+            flash('Account already exists, please try again.')
         else:
             hashed_password = form.password.data
             user = User(username=form.username.data,
@@ -100,12 +100,11 @@ def register():
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('dashboard'))
-    return render_template('register.html', form=form, error=error)
+    return render_template('register.html', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    error = None
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -113,8 +112,8 @@ def login():
             if form.password.data == user.password:
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
-        error = "Incorrect username or password, please try again."
-    return render_template('login.html', form=form, error=error)
+        flash('Incorrect username or password, please try again.')
+    return render_template('login.html', form=form)
 
 
 @app.route("/logout")
@@ -127,7 +126,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    resumes = ResumeList.query.all()
+    resumes = ResumeList.query.filter_by(user_id=current_user.id).all()
     return render_template('dashboard.html', resumes=resumes)
 
 
@@ -142,12 +141,15 @@ def questionnaire():
 @login_required
 def upload():
     if request.method == "POST":
-        if request.files:
-            file = request.files['inputFile']
-            thisFile = ResumeList(name=file.name, resume=file.read())
+        file = request.files['inputFile']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        else:
+            thisFile = ResumeList(name=file.filename, resume=file.read(), user_id=current_user.id)
             db.session.add(thisFile)
             db.session.commit()
-            return redirect(url_for("upload"))
+            return redirect(url_for("dashboard"))
     return render_template("upload.html")
 
 

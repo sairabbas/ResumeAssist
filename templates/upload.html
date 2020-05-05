@@ -38,25 +38,33 @@ Upload - Resume Assist
       </div>
     </div>
   </nav>
-
+<body>
 <!-- Page Features -->
- <div class ="container">
-    <h1>Resume
+ <div style="padding-top: 120px" class ="container">
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+     <p style="text-align: left; color: red" class=error><strong>{{ message }}</strong></p>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <h1 style="text-align: center">Upload Resume
+        <br><br>
       <form method="POST" action="/upload" enctype="multipart/form-data">
         <div>
-          <label for="inputFile">Upload</label>
+          <label style="padding-left: 263px" for="inputFile"></label>
           <input type="file" name="inputFile">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </h1>
   </div>
-
-<!-- Adjust Page Spacing -->
-<div style="padding-top: 75px">
+</body>
+<div style="padding-top: 284px">
     &nbsp;
 </div>
-
 <!-- /.container -->
   <!-- Footer -->
   <footer class="py-5 bg-dark">
