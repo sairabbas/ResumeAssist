@@ -38,6 +38,7 @@ Dashboard - Resume Assist
       </div>
     </div>
   </nav>
+
   <!-- Page Content -->
   <div class="container">
     <!-- Jumbotron Header -->
@@ -53,7 +54,7 @@ Dashboard - Resume Assist
     {% for resume in resumes%}
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
-          <img class="card-img-top" src="static/media/{{ resume.name }}" alt="file.pdf">
+          <img class="card-img-top" src="{{ url_for('view', id=resume.id) }}" alt="file.pdf">
           <div class="card-body" style="padding-top: 0px">
             <h4 class="card-title"> {{ resume.name }} </h4>
             <p class="card-text">Quick Synopsis Of Resume Info</p>
