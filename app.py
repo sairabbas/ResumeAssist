@@ -116,7 +116,7 @@ def logout():
 @login_required
 def dashboard():
     resumes = ResumeList.query.filter_by(user_id=current_user.id).all()
-    return render_template('dashboard.html', resumes=resumes)
+    return render_template('dashboard.html', resumes=resumes, name=current_user.username)
 
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
@@ -168,7 +168,7 @@ def delete(id):
     ResumeList.query.filter_by(id=id).delete()
     db.session.commit()
     resumes = ResumeList.query.all()
-    return render_template('dashboard.html', resumes=resumes)
+    return render_template('dashboard.html', resumes=resumes, name=current_user.username)
 
 
 @app.route('/media<file>')
