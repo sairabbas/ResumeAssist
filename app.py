@@ -1,15 +1,11 @@
-import flask_login
-from flask import Flask, render_template, url_for, flash, redirect, request, send_file
-from flask_login import current_user, login_required, login_user, logout_user
+from io import BytesIO
+from flask import Flask, render_template, url_for, flash, redirect, request, send_file, send_from_directory
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_login import UserMixin
+from flask_login import current_user, login_required, login_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import check_password_hash
-from io import BytesIO
-from forms import RegistrationForm, LoginForm, QuestionnaireForm, Test
-import encodeDecode
-
-from flask_bootstrap import Bootstrap
+from forms import RegistrationForm, LoginForm, QuestionnaireForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '57916289bb0b13ce0c676dfde280ba245'
@@ -39,13 +35,6 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'<user: {self.username}>'
-
-
-# TO TEST ENCODE DECODE
-""" class Info(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    encoded = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) """
 
 
 class ResumeList(db.Model):
@@ -169,13 +158,13 @@ def download(id):
 @login_required
 def view(id):
     resume = ResumeList.query.filter_by(id=id).first()
-    return send_file(BytesIO(resume.resume))
+    return send_file(BytesIO(resume.resume), attachment_filename=resume.name)
 
 
 @app.route('/delete<id>')
 @login_required
 def delete(id):
-    ResumeList.query.filter_by(id=int(id)).delete()
+    ResumeList.query.filter_by(id=id).delete()
     db.session.commit()
     resumes = ResumeList.query.all()
     return render_template('dashboard.html', resumes=resumes)

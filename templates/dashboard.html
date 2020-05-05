@@ -52,8 +52,8 @@ Home - Resume Assist
     {% for resume in resumes%}
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
-          <img class="card-img-top" src="{{ resume.resume }}" alt="resume.pdf">
-          <div class="card-body">
+          <img class="card-img-top" src="{{ url_for('static', filename='media/test.pdf') }}" alt="file.pdf">
+          <div class="card-body" style="padding-top: 0px">
             <h4 class="card-title"> {{ resume.name }} </h4>
             <p class="card-text">Quick Synopsis Of Resume Info</p>
           </div>
