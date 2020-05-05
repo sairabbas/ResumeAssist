@@ -169,5 +169,10 @@ def delete(id):
     return redirect(url_for("dashboard"))
 
 
+@app.route('/temp')
+def temp():
+    return render_template('temp1.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
