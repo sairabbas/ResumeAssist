@@ -118,10 +118,13 @@ def submit():
         with open("skill.txt", "w") as skills:
             skills.write(str(form.skills.data))
         skills.close()
-        createPDF()
 
+        file = createPDF()
+        thisFile = ResumeList(name=file.filename, resume=file.read(), user_id=current_user.id)
+        db.session.add(thisFile)
+        db.session.commit()
+    return redirect(url_for('dashboard'))
 
-        
 
 
 @app.route("/register", methods=['GET', 'POST'])

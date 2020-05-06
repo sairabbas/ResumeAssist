@@ -61,6 +61,6 @@ class QuestionnaireForm(FlaskForm):
     workDescription3 = TextAreaField('Work Description', validators=[Optional()])
     workStartDate3 = StringField('Work Start Date', validators=[Optional()])
     workEndDate3 = StringField('Work End Date', validators=[Optional()])
-    skills = StringField('Skills or Technologies you Know' validators=[DataRequired(), Length(min=3, max=500)])
+    skills = StringField('Skills or Technologies you Know', validators=[DataRequired(), Length(min=3, max=500)])
 
     # submit = SubtmitField('Submit')
