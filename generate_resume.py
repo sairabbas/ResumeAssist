@@ -40,7 +40,15 @@ def createPDF():
         pdf.multi_cell(200,5,txt = a, align = 'L')
     experience.close()
 
+    pdf.set_font('Times','BI',11)
+    pdf.cell(200,5, txt = "Skills", align = 'L')
+    skills = open('./skill.txt', "r")
+    pdf.set_font('Times','',10)
+    for b in skills:
+        pdf.multi_cell(200,5,txt = b, align = 'L')
+    skills.close()
+
     pdf.output("resume.pdf", "F")
 
 
-#createPDF()
+# createPDF()

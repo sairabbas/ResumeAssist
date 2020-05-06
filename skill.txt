@@ -1,1 +1,3 @@
-fdafdsa
+
+Skills and Technologies: Python, Flask, MySQL Lite, JavaScript, CSS
+
