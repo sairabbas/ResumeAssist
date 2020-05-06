@@ -6,6 +6,7 @@ from flask_login import UserMixin
 from flask_login import current_user, login_required, login_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm, QuestionnaireForm
+from generate_resume import createPDF
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '57916289bb0b13ce0c676dfde280ba245'
@@ -55,22 +56,72 @@ def home():
 
 
 # TO TEST ENCODER DECODER
-""" @app.route("/test", methods =['POST'])
+@app.route("/submit", methods =['POST', 'GET'])
 def submit():
-    form = Test()
-    if form.validate_on_submit():
+    form = QuestionnaireForm()
+    if form.validate_on_submit(): #idk what this means
         #takes all form data and writes into text file
+        with open("user.txt", "w") as user:
+            user.write(str(form.userName.data))
+            user.write(str(form.degree.data))
+            user.write(str(form.startDate.data))
+            user.write(str(form.endDate.data))
+            user.write(str(form.gpa.data))
+            user.write(str(form.coursework.data))
+        user.close()
+        
         with open("education.txt", "w") as education:
-          education.write(str(form.school.data))
-          education.write(str(form.degree.data))
-          education.write(str(form.startDate.data))
-          education.write(str(form.endDate.data))
-          education.write(str(form.gpa.data))
-          education.write(str(form.coursework.data))
-        #store textfile as a encoded string of bytes
-        info = Info(eductation = encodeDecode.encodeFile("education.txt"))
-        db.session.add(info)
-        db.session.commit() """
+            education.write(str(form.schoolName.data))
+            education.write(str(form.schoolStartDate.data))
+            education.write(str(form.schoolEndDate.data))
+            education.write(str(form.schoolDegree.data))
+            education.write(str(form.schoolGPA.data))
+        education.close()
+        
+        with open("project.txt", "w") as project:
+            project.write(str(form.projectTitle.data))
+            project.write(str(form.projectTime.data))
+            project.write(str(form.projectTech.data))
+            project.write(str(form.projectDescription))
+
+            project.write(str(form.projectTitle2.data))
+            project.write(str(form.projectTime2.data))
+            project.write(str(form.projectTech2.data))
+            project.write(str(form.projectDescription2.data))
+
+            project.write(str(form.projectTitle3.data))
+            project.write(str(form.projectTime3.data))
+            project.write(str(form.projectTech3.data))
+            project.write(str(form.projectDescription3.data))
+        project.close()
+
+        with open("work.txt", "w") as work:
+            work.write(str(form.workTitle.data))
+            work.write(str(form.workCompany.data))
+            work.write(str(form.workStartDate.data))
+            work.write(str(form.workEndDate.data))
+            work.write(str(form.workDescription.data))
+
+            work.write(str(form.workTitle2.data))
+            work.write(str(form.workCompany2.data))
+            work.write(str(form.workStartDate2.data))
+            work.write(str(form.workEndDate2.data))
+            work.write(str(form.workDescription2.data))
+
+            work.write(str(form.workTitle3.data))
+            work.write(str(form.workCompany3.data))
+            work.write(str(form.workStartDate3.data))
+            work.write(str(form.workEndDate3.data))
+            work.write(str(form.workDescription3.data))
+        work.close()
+        
+        with open("skill.txt", "w") as skills:
+            skills.write(str(form.skills.data))
+        skills.close()
+        createPDF()
+
+
+        
 
 
 @app.route("/register", methods=['GET', 'POST'])
