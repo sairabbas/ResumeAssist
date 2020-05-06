@@ -26,7 +26,7 @@ def createPDF():
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Selected Independent Projects", align = 'L')
-    projects = open('.project.txt', 'r')
+    projects = open('./project.txt', 'r')
     pdf.set_font('Times','',10)
     for z in projects:
        pdf.multi_cell(200,5,txt = z, align = 'L')
@@ -34,7 +34,7 @@ def createPDF():
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Experience", align = 'L')
-    experience = open('.work.txt', 'r')
+    experience = open('./work.txt', 'r')
     pdf.set_font('Times','',10)
     for a in experience:
         pdf.multi_cell(200,5,txt = a, align = 'L')
