@@ -76,7 +76,7 @@ def submit():
             education.write(str(form.get("schoolEndDate")))
             education.write(str(form.get("schoolDegree"))+ "\n")
             education.write("GPA: " + str(form.get("schoolGPA")) + "\n")
-            education.write("Rel"str(form.get("schoolCourses")))
+            education.write("Rel", str(form.get("schoolCourses")))
             education.write("\n\n")
         education.close()
 
