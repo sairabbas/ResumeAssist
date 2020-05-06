@@ -117,13 +117,12 @@ def submit():
             skills.write(str(form.get("skills")))
         skills.close()
 
-        file = createPDF()
-        thisFile = ResumeList(name=file.filename, resume=file.read(), user_id=current_user.id)
+        createPDF()
+        file = open("resume.pdf", "rb")
+        thisFile = ResumeList(name=file.name, resume=file.read(), user_id=current_user.id)
         db.session.add(thisFile)
         db.session.commit()
     return redirect(url_for('dashboard'))
-
-
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -194,10 +193,12 @@ def upload():
             return redirect(url_for("dashboard"))
     return render_template("upload.html")
 
+
 @app.route('/selection')
 @login_required
 def selection():
     return render_template('selection.html')
+
 
 @app.route('/download<id>')
 @login_required
@@ -205,11 +206,13 @@ def download(id):
     file_data = ResumeList.query.filter_by(id=id).first()
     return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name, as_attachment=True)
 
+
 @app.route('/view<id>')
 @login_required
 def view(id):
     resume = ResumeList.query.filter_by(id=id).first()
     return send_file(BytesIO(resume.resume), attachment_filename=resume.name)
+
 
 @app.route('/delete<id>')
 @login_required

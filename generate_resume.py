@@ -40,7 +40,7 @@ def createPDF():
         pdf.multi_cell(200,5,txt = a, align = 'L')
     experience.close()
 
-    pdf.output("test.pdf")
+    pdf.output("resume.pdf", "F")
 
 
 #createPDF()
