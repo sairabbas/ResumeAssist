@@ -11,13 +11,13 @@ def createPDF():
     pdf.add_page()
     pdf.set_font('Times','BI',11)
 #   write file...
-    contact = open("./resume_generation/test.txt","r")
+    contact = open("./user.txt","r")
 
     for x in contact:
        pdf.multi_cell(200,5, txt = x, align = 'C')
     contact.close()
 
-    education = open('./resume_generation/test2.txt','r')
+    education = open('./education.txt','r')
     pdf.cell(200,5, txt = "Education", align = 'L')
     pdf.set_font('Times','',10)
     for y in education:
@@ -26,7 +26,7 @@ def createPDF():
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Selected Independent Projects", align = 'L')
-    projects = open('./resume_generation/test3.txt', 'r')
+    projects = open('.project.txt', 'r')
     pdf.set_font('Times','',10)
     for z in projects:
        pdf.multi_cell(200,5,txt = z, align = 'L')
@@ -34,7 +34,7 @@ def createPDF():
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Experience", align = 'L')
-    experience = open('./resume_generation/test4.txt', 'r')
+    experience = open('.work.txt', 'r')
     pdf.set_font('Times','',10)
     for a in experience:
         pdf.multi_cell(200,5,txt = a, align = 'L')
