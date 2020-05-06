@@ -58,65 +58,63 @@ def home():
 # TO TEST ENCODER DECODER
 @app.route("/submit", methods =['POST', 'GET'])
 def submit():
-    form = QuestionnaireForm()
-    if form.validate_on_submit(): #idk what this means
+    if request.method=='POST': #if validate_on_submit
         #takes all form data and writes into text file
+        form=request.form
         with open("user.txt", "w") as user:
-            user.write(str(form.userName.data))
-            user.write(str(form.degree.data))
-            user.write(str(form.startDate.data))
-            user.write(str(form.endDate.data))
-            user.write(str(form.gpa.data))
-            user.write(str(form.coursework.data))
+            user.write(str(form.get("userName")))
+            user.write(str(form.get("userPhone")))
+            user.write(str(form.get("userEmail")))
+            user.write(str(form.get("userPortfolio")))
         user.close()
-        
+
         with open("education.txt", "w") as education:
-            education.write(str(form.schoolName.data))
-            education.write(str(form.schoolStartDate.data))
-            education.write(str(form.schoolEndDate.data))
-            education.write(str(form.schoolDegree.data))
-            education.write(str(form.schoolGPA.data))
+            education.write(str(form.get("schoolName")))
+            education.write(str(form.get("schoolStartDate")))
+            education.write(str(form.get("schoolEndDate")))
+            education.write(str(form.get("schoolGPA")))
+            education.write(str(form.get("schoolDegree")))
         education.close()
-        
+
         with open("project.txt", "w") as project:
-            project.write(str(form.projectTitle.data))
-            project.write(str(form.projectTime.data))
-            project.write(str(form.projectTech.data))
-            project.write(str(form.projectDescription))
+            project.write(str(form.get("projectTitle")))
+            project.write(str(form.get("projectTime")))
+            project.write(str(form.get("projectTech")))
+            project.write(str(form.get("projectDescription")))
 
-            project.write(str(form.projectTitle2.data))
-            project.write(str(form.projectTime2.data))
-            project.write(str(form.projectTech2.data))
-            project.write(str(form.projectDescription2.data))
+            project.write(str(form.get("projectTitle2")))
+            project.write(str(form.get("projectTime2")))
+            project.write(str(form.get("projectTech2")))
+            project.write(str(form.get("projectDescription2")))
 
-            project.write(str(form.projectTitle3.data))
-            project.write(str(form.projectTime3.data))
-            project.write(str(form.projectTech3.data))
-            project.write(str(form.projectDescription3.data))
+            project.write(str(form.get("projectTitle3")))
+            project.write(str(form.get("projectTime3")))
+            project.write(str(form.get("projectTech3")))
+            project.write(str(form.get("projectDescription3")))
         project.close()
 
         with open("work.txt", "w") as work:
-            work.write(str(form.workTitle.data))
-            work.write(str(form.workCompany.data))
-            work.write(str(form.workStartDate.data))
-            work.write(str(form.workEndDate.data))
-            work.write(str(form.workDescription.data))
+            work.write(str(form.get("workTitle")))
+            work.write(str(form.get("workCompany")))
+            work.write(str(form.get("workStartDate")))
+            work.write(str(form.get("workEndDate")))
+            work.write(str(form.get("workDescription")))
 
-            work.write(str(form.workTitle2.data))
-            work.write(str(form.workCompany2.data))
-            work.write(str(form.workStartDate2.data))
-            work.write(str(form.workEndDate2.data))
-            work.write(str(form.workDescription2.data))
+            work.write(str(form.get("workTitle2")))
+            work.write(str(form.get("workCompany2")))
+            work.write(str(form.get("workStartDate2")))
+            work.write(str(form.get("workEndDate2")))
+            work.write(str(form.get("workDescription2")))
 
-            work.write(str(form.workTitle3.data))
-            work.write(str(form.workCompany3.data))
-            work.write(str(form.workStartDate3.data))
-            work.write(str(form.workEndDate3.data))
-            work.write(str(form.workDescription3.data))
+            work.write(str(form.get("workTitle3")))
+            work.write(str(form.get("workCompany3")))
+            work.write(str(form.get("workStartDate3")))
+            work.write(str(form.get("workEndDate3")))
+            work.write(str(form.get("workDescription3")))
         work.close()
-        
+
         with open("skill.txt", "w") as skills:
-            skills.write(str(form.skills.data))
+            skills.write(str(form.get("skills")))
         skills.close()
 
         file = createPDF()
@@ -124,6 +122,7 @@ def submit():
         db.session.add(thisFile)
         db.session.commit()
     return redirect(url_for('dashboard'))
+
 
 
 
@@ -176,6 +175,7 @@ def dashboard():
 @login_required
 def questionnaire():
     form = QuestionnaireForm()
+
     return render_template('questionnaire.html', form=form)
 
 
@@ -194,12 +194,10 @@ def upload():
             return redirect(url_for("dashboard"))
     return render_template("upload.html")
 
-
 @app.route('/selection')
 @login_required
 def selection():
     return render_template('selection.html')
-
 
 @app.route('/download<id>')
 @login_required
@@ -207,13 +205,11 @@ def download(id):
     file_data = ResumeList.query.filter_by(id=id).first()
     return send_file(BytesIO(file_data.resume), attachment_filename=file_data.name, as_attachment=True)
 
-
 @app.route('/view<id>')
 @login_required
 def view(id):
     resume = ResumeList.query.filter_by(id=id).first()
     return send_file(BytesIO(resume.resume), attachment_filename=resume.name)
-
 
 @app.route('/delete<id>')
 @login_required

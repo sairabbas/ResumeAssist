@@ -159,30 +159,32 @@ button:hover {
 
 <body>
   <div class = "container">
-  <form id="regForm" action="/action_page.php">
+  <form id="regForm" method = "POST" action="/submit">
     <h1 class="display-3" style="text-align: center">Resume Information  <img src="static/images/logo.jpg" height="100" class="img-responsive" alt="logo"></h1>
     <!-- One "tab" for each step in the form: -->
     <div class="tab">
     <h2>School:</h2><br>
       {{form.hidden_tag()}}
+      {{wtf.form_field(form.userName)}}
+      {{wtf.form_field(form.userPhone)}}
+      {{wtf.form_field(form.userEmail)}}
+      {{wtf.form_field(form.userPortfolio)}}
       {{wtf.form_field(form.schoolName)}}
       {{wtf.form_field(form.schoolDegree)}}
       {{wtf.form_field(form.schoolGPA)}}
       {{wtf.form_field(form.schoolStartDate)}}
       {{wtf.form_field(form.schoolEndDate)}}
-
-      {{ form.schoolCourse1.label(class="") }}
-      {{ form.schoolCourse1Description() }}
-      {{ form.schoolCourse2.label(class="") }}
-      {{ form.schoolCourse2Description() }}
-      {{ form.schoolCourse3.label(class="") }}
-      {{ form.schoolCourse3Description() }}
+      <br><br><br>
+    </div>
+    <div class="tab"><h2>Skills:</h2><br>
+      {{wtf.form_field(form.skills)}}
       <br><br><br>
     </div>
     <div class="tab"><h2>Projects:</h2><br>
       {{wtf.form_field(form.projectTitle)}}
-      {{ form.projectDescription.label(class__="text_blob") }}
-      {{ form.projectDescription(class="") }}
+      {{ form.projectDescription.label() }}
+      {{ form.projectDescription() }}
+      {{wtf.form_field(form.projectTech)}}
       {{wtf.form_field(form.projectTime)}}
       <br>
       <div style="overflow:auto;">
@@ -194,7 +196,8 @@ button:hover {
       <div id= "project2" style=display:none;>
         {{wtf.form_field(form.projectTitle)}}
         {{ form.projectDescription.label() }}
-        {{ form.projectDescription(class="") }}
+        {{ form.projectDescription() }}
+        {{wtf.form_field(form.projectTech2)}}
         {{wtf.form_field(form.projectTime)}}
         <br>
         <div style="overflow:auto;">
@@ -206,8 +209,9 @@ button:hover {
       <!--PROJECT THREE OPTION-->
       <div id="project3" style=display:none;>
         {{wtf.form_field(form.projectTitle3)}}
-        {{ form.projectDescription3.label(class__="text_blob") }}
-        {{ form.projectDescription3(class="") }}
+        {{ form.projectDescription3.label() }}
+        {{ form.projectDescription3() }}
+        {{wtf.form_field(form.projectTech3)}}
         {{wtf.form_field(form.projectTime3)}}
       <br><br><br>
       </div>
@@ -215,8 +219,8 @@ button:hover {
     <!--END OF PROJECT SECTION AND START OF WORK SECTION-->
     <div class="tab"><h2>Work Experience:</h2><br>
       {{wtf.form_field(form.workTitle)}}
-      {{ form.workDescription.label(class="") }}
-      {{ form.workDescription(class="") }}
+      {{ form.workDescription.label() }}
+      {{ form.workDescription() }}
       {{wtf.form_field(form.workStartDate)}}
       {{wtf.form_field(form.workEndDate)}}
       <br>
@@ -227,8 +231,8 @@ button:hover {
       </div>
       <div id="work2" style=display:none;>
         {{wtf.form_field(form.workTitle2)}}
-        {{ form.workDescription2.label(class="") }}
-        {{ form.workDescription2(class="") }}
+        {{ form.workDescription2.label() }}
+        {{ form.workDescription2() }}
         {{wtf.form_field(form.workStartDate2)}}
         {{wtf.form_field(form.workEndDate2)}}
         <br>
@@ -240,8 +244,8 @@ button:hover {
       </div>
       <div id="work3" style=display:none;>
         {{wtf.form_field(form.workTitle3)}}
-        {{ form.workDescription3.label(class="") }}
-        {{ form.workDescription3(class="") }}
+        {{ form.workDescription3.label() }}
+        {{ form.workDescription3() }}
         {{wtf.form_field(form.workStartDate3)}}
         {{wtf.form_field(form.workEndDate3)}}
         <br><br><br>
@@ -255,6 +259,7 @@ button:hover {
     </div>
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
@@ -327,9 +332,9 @@ function validateForm() {
   for (i = 0; i < y.length; i++) {
     //TextAreaFields are not counted ast inputs for some reason so they are not
     //being checked as of right now
-    if(currentTab==1 && i > 1)
+    if(currentTab==2 && i > 1)
       break;
-    if(currentTab==2 && i > 2)
+    if(currentTab==3 && i > 2)
       break;
     // If a field is empty...
     if (y[i].value == "") {
