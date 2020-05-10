@@ -73,10 +73,10 @@ def submit():
             education.write("\n")
             education.write(str(form.get("schoolName")) + " | ")
             education.write(str(form.get("schoolStartDate")) + " - ")
-            education.write(str(form.get("schoolEndDate")))
+            education.write(str(form.get("schoolEndDate"))+ "\n")
             education.write(str(form.get("schoolDegree"))+ "\n")
             education.write("GPA: " + str(form.get("schoolGPA")) + "\n")
-            education.write("Rel" + str(form.get("schoolCourses")))
+            education.write("Related Courses: " + str(form.get("schoolCourses")))
             education.write("\n\n")
         education.close()
 
@@ -88,17 +88,19 @@ def submit():
             project.write(str(form.get("projectDescription")))
             project.write("\n\n")
 
-            project.write(str(form.get("projectTitle2")) + " | ")
-            project.write(str(form.get("projectTime2")) + "\n")
-            project.write(str(form.get("projectTech2")) + "\n")
-            project.write(str(form.get("projectDescription2")))
-            project.write("\n\n")
+            if(str(form.get("projectTitle2")) != null or str(form.get("projectTitle2")) != "None"):
+              project.write(str(form.get("projectTitle2")) + " | ")
+              project.write(str(form.get("projectTime2")) + "\n")
+              project.write(str(form.get("projectTech2")) + "\n")
+              project.write(str(form.get("projectDescription2")))
+              project.write("\n\n")
 
-            project.write(str(form.get("projectTitle3")) + " | ")
-            project.write(str(form.get("projectTime3")) + "\n")
-            project.write(str(form.get("projectTech3")) + "\n")
-            project.write(str(form.get("projectDescription3")))
-            project.write("\n\n")
+            if(str(form.get("projectTitle3")) != null or str(form.get("projectTitle3")) != "None"):
+              project.write(str(form.get("projectTitle3")) + " | ")
+              project.write(str(form.get("projectTime3")) + "\n")
+              project.write(str(form.get("projectTech3")) + "\n")
+              project.write(str(form.get("projectDescription3")))
+              project.write("\n\n")
         project.close()
 
         with open("work.txt", "w") as work:
@@ -110,19 +112,21 @@ def submit():
             work.write(str(form.get("workDescription")))
             work.write("\n\n")
 
-            work.write(str(form.get("workCompany2")) + " | ")
-            work.write(str(form.get("workStartDate2")) + " - ")
-            work.write(str(form.get("workEndDate2")) + "\n")
-            work.write(str(form.get("workTitle2")) + "\n")
-            work.write(str(form.get("workDescription2")))
-            work.write("\n\n")
+            if(str(form.get("workCompany2")) != null or str(form.get("workCompany2")) != "None"):
+              work.write(str(form.get("workCompany2")) + " | ")
+              work.write(str(form.get("workStartDate2")) + " - ")
+              work.write(str(form.get("workEndDate2")) + "\n")
+              work.write(str(form.get("workTitle2")) + "\n")
+              work.write(str(form.get("workDescription2")))
+              work.write("\n\n")
 
-            work.write(str(form.get("workCompany3")) + " | ")
-            work.write(str(form.get("workStartDate3")) + " - ")
-            work.write(str(form.get("workEndDate3")) + "\n")
-            work.write(str(form.get("workTitle3")) + "\n")
-            work.write(str(form.get("workDescription3")))
-            work.write("\n\n")
+            if(str(form.get("workCompany3")) != null or str(form.get("workCompany3")) != "None"):
+              work.write(str(form.get("workCompany3")) + " | ")
+              work.write(str(form.get("workStartDate3")) + " - ")
+              work.write(str(form.get("workEndDate3")) + "\n")
+              work.write(str(form.get("workTitle3")) + "\n")
+              work.write(str(form.get("workDescription3")))
+              work.write("\n\n")
         work.close()
 
         with open("skill.txt", "w") as skills:
