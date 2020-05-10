@@ -51,4 +51,4 @@ def createPDF():
     pdf.output("resume.pdf", "F")
 
 
-# createPDF()
+createPDF()
