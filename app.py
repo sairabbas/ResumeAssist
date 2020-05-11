@@ -88,14 +88,14 @@ def submit():
             project.write(str(form.get("projectDescription")))
             project.write("\n\n")
 
-            if(str(form.get("projectTitle2")) != null or str(form.get("projectTitle2")) != "None"):
+            if(str(form.get("projectTitle2")) != None or str(form.get("projectTitle2")) != "None"):
               project.write(str(form.get("projectTitle2")) + " | ")
               project.write(str(form.get("projectTime2")) + "\n")
               project.write(str(form.get("projectTech2")) + "\n")
               project.write(str(form.get("projectDescription2")))
               project.write("\n\n")
 
-            if(str(form.get("projectTitle3")) != null or str(form.get("projectTitle3")) != "None"):
+            if(str(form.get("projectTitle3")) != None or str(form.get("projectTitle3")) != "None"):
               project.write(str(form.get("projectTitle3")) + " | ")
               project.write(str(form.get("projectTime3")) + "\n")
               project.write(str(form.get("projectTech3")) + "\n")
@@ -112,7 +112,7 @@ def submit():
             work.write(str(form.get("workDescription")))
             work.write("\n\n")
 
-            if(str(form.get("workCompany2")) != null or str(form.get("workCompany2")) != "None"):
+            if(str(form.get("workCompany2")) != None or str(form.get("workCompany2")) != "None"):
               work.write(str(form.get("workCompany2")) + " | ")
               work.write(str(form.get("workStartDate2")) + " - ")
               work.write(str(form.get("workEndDate2")) + "\n")
@@ -120,7 +120,7 @@ def submit():
               work.write(str(form.get("workDescription2")))
               work.write("\n\n")
 
-            if(str(form.get("workCompany3")) != null or str(form.get("workCompany3")) != "None"):
+            if(str(form.get("workCompany3")) != None or str(form.get("workCompany3")) != "None"):
               work.write(str(form.get("workCompany3")) + " | ")
               work.write(str(form.get("workStartDate3")) + " - ")
               work.write(str(form.get("workEndDate3")) + "\n")
