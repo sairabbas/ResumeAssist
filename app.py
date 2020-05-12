@@ -81,12 +81,12 @@ def submit():
         education.close()
 
         with open("project.txt", "w") as project:
-              project.write("\n")
-              project.write(str(form.get("projectTitle")) + " | ")
-              project.write(str(form.get("projectTime")) + "\n")
-              project.write(str(form.get("projectTech")) + "\n")
-              project.write(str(form.get("projectDescription")))
-              project.write("\n\n")
+            project.write("\n")
+            project.write(str(form.get("projectTitle")) + " | ")
+            project.write(str(form.get("projectTime")) + "\n")
+            project.write(str(form.get("projectTech")) + "\n")
+            project.write(str(form.get("projectDescription")))
+            project.write("\n\n")
 
             if(str(form.get("projectTitle2")) != None or str(form.get("projectTitle2")) != "None"):
                 project.write(str(form.get("projectTitle2")) + " | ")
