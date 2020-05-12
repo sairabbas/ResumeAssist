@@ -13,42 +13,56 @@ def createPDF():
 #   write file...
     contact = open("./user.txt","r")
 
-    for x in contact:
-       pdf.multi_cell(200,5, txt = x, align = 'C')
+    for a in contact:
+       pdf.multi_cell(200,5, txt = a, align = 'C')
     contact.close()
 
     education = open('./education.txt','r')
     pdf.cell(200,5, txt = "Education", align = 'L')
+    y = pdf.get_y()
+    pdf.line(200,y+5,5,y+5)
     pdf.set_font('Times','',10)
-    for y in education:
-        pdf.multi_cell(200,5, txt = y, align = 'L')
+    for b in education:
+        pdf.multi_cell(200,5, txt = b, align = 'L')
     education.close()
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Selected Independent Projects", align = 'L')
+    y = pdf.get_y()
+    pdf.line(200,y+5,5,y+5)
     projects = open('./project.txt', 'r')
     pdf.set_font('Times','',10)
-    for z in projects:
-       pdf.multi_cell(200,5,txt = z, align = 'L')
+    for c in projects:
+       pdf.multi_cell(200,5,txt = c, align = 'L')
     projects.close()
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Experience", align = 'L')
+    y = pdf.get_y()
+    pdf.line(200,y+5,5,y+5)
     experience = open('./work.txt', 'r')
     pdf.set_font('Times','',10)
-    for a in experience:
-        pdf.multi_cell(200,5,txt = a, align = 'L')
+    for d in experience:
+        pdf.multi_cell(200,5,txt = d, align = 'L')
     experience.close()
 
     pdf.set_font('Times','BI',11)
     pdf.cell(200,5, txt = "Skills", align = 'L')
+    y = pdf.get_y()
+    pdf.line(200,y+5,5,y+5)
     skills = open('./skill.txt', "r")
     pdf.set_font('Times','',10)
-    for b in skills:
-        pdf.multi_cell(200,5,txt = b, align = 'L')
+    for e in skills:
+        pdf.multi_cell(200,5,txt = e, align = 'L')
     skills.close()
 
-    pdf.output("resume.pdf", "F")
+    try:
+        pdf.output("resume.pdf", "F")
+        return "Success"
+    except:
+        return "Error"
+
+
 
 
 createPDF()
