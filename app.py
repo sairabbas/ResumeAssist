@@ -85,21 +85,27 @@ def submit():
             project.write(str(form.get("projectTitle")) + " | ")
             project.write(str(form.get("projectTime")) + "\n")
             project.write(str(form.get("projectTech")) + "\n")
-            project.write(str(form.get("projectDescription")))
+            project.write(str(form.get("projectDescription1")+"\n"))
+            project.write(str(form.get("projectDescription11")+"\n"))
+            project.write(str(form.get("projectDescription111")))
             project.write("\n\n")
 
-            if(str(form.get("projectTitle2")) != None or str(form.get("projectTitle2")) != "None"):
+            if(str(form.get("projectTitle2")) != ""):
                 project.write(str(form.get("projectTitle2")) + " | ")
                 project.write(str(form.get("projectTime2")) + "\n")
                 project.write(str(form.get("projectTech2")) + "\n")
-                project.write(str(form.get("projectDescription2")))
+                project.write(str(form.get("projectDescription2")+"\n"))
+                project.write(str(form.get("projectDescription22")+"\n"))
+                project.write(str(form.get("projectDescription222")))
                 project.write("\n\n")
 
-            if(str(form.get("projectTitle3")) != None or str(form.get("projectTitle3")) != "None"):
+            if(str(form.get("projectTitle3")) != ""):
                 project.write(str(form.get("projectTitle3")) + " | ")
                 project.write(str(form.get("projectTime3")) + "\n")
                 project.write(str(form.get("projectTech3")) + "\n")
-                project.write(str(form.get("projectDescription3")))
+                project.write(str(form.get("projectDescription3")+"\n"))
+                project.write(str(form.get("projectDescription33")+"\n"))
+                project.write(str(form.get("projectDescription333")))
                 project.write("\n\n")
         project.close()
 
@@ -109,23 +115,29 @@ def submit():
             work.write(str(form.get("workStartDate")) + " - ")
             work.write(str(form.get("workEndDate")) + "\n")
             work.write(str(form.get("workTitle")) + "\n")
-            work.write(str(form.get("workDescription")))
+            work.write(str(form.get("workDescription1")+"\n"))
+            work.write(str(form.get("workDescription11")+"\n"))
+            work.write(str(form.get("workDescription111")))
             work.write("\n\n")
 
-            if(str(form.get("workCompany2")) != None or str(form.get("workCompany2")) != "None"):
+            if(str(form.get("workCompany2")) != ""):
                 work.write(str(form.get("workCompany2")) + " | ")
                 work.write(str(form.get("workStartDate2")) + " - ")
                 work.write(str(form.get("workEndDate2")) + "\n")
                 work.write(str(form.get("workTitle2")) + "\n")
-                work.write(str(form.get("workDescription2")))
+                work.write(str(form.get("workDescription2")+"\n"))
+                work.write(str(form.get("workDescription22")+"\n"))
+                work.write(str(form.get("workDescription222")))
                 work.write("\n\n")
 
-            if(str(form.get("workCompany3")) != None or str(form.get("workCompany3")) != "None"):
+            if(str(form.get("workCompany3")) != ""):
                 work.write(str(form.get("workCompany3")) + " | ")
                 work.write(str(form.get("workStartDate3")) + " - ")
                 work.write(str(form.get("workEndDate3")) + "\n")
                 work.write(str(form.get("workTitle3")) + "\n")
-                work.write(str(form.get("workDescription3")))
+                work.write(str(form.get("workDescription3")+"\n"))
+                work.write(str(form.get("workDescription33")+"\n"))
+                work.write(str(form.get("workDescription333")))
                 work.write("\n\n")
         work.close()
 

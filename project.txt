@@ -1,13 +1,19 @@
 
-fdsafds | fdsafdsfd
-fdsafdafdsaf
-fdsafdsaf
+a | a
+a
+-a
+-a
+-a
 
-None | None
+b | b
+b
+-b
+-b
+-b
 
-None
-
- | 
-
-
+c | c
+c
+-c
+-c
+-c
 
