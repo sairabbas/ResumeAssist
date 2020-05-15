@@ -147,7 +147,9 @@ def submit():
             skills.write("\n\n")
         skills.close()
 
-        createPDF()
+        result = createPDF()
+        if result == "Error":
+            return redirect(url_for('questionnaire', form=form))
         file = open("resume.pdf", "rb")
         thisFile = ResumeList(name=file.name, resume=file.read(), user_id=current_user.id)
         db.session.add(thisFile)
@@ -224,12 +226,6 @@ def upload():
     return render_template("upload.html")
 
 
-@app.route('/selection')
-@login_required
-def selection():
-    return render_template('selection.html')
-
-
 @app.route('/download<id>')
 @login_required
 def download(id):
@@ -250,11 +246,6 @@ def delete(id):
     ResumeList.query.filter_by(id=id).delete()
     db.session.commit()
     return redirect(url_for("dashboard"))
-
-
-@app.route('/temp')
-def temp():
-    return render_template('temp1.html')
 
 
 if __name__ == '__main__':

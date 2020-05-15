@@ -1,6 +1,6 @@
 
-a | a - a
-a
-GPA: a
-Related Courses: a
+g | g - g
+g
+GPA: g
+Related Courses: g
 
